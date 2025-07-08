@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pomodoro Timer | Portfolio</title>
+    <link rel="stylesheet" href="pomodoro.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="logo">
+          <a href="index.html"
+            >blas<span class="highlight">&lt;montanari&gt;</span></a
+          >
+        </div>
+        <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+        <ul class="nav-links">
+          <li><a href="index.html">Back to Portfolio</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <div class="pomodoro-container">
+        <h1>Pomodoro Timer</h1>
+
+        <div class="timer-container">
+          <div class="mode-buttons">
+            <button id="pomodoro" class="mode-btn active">Pomodoro</button>
+            <button id="short-break" class="mode-btn">Short Break</button>
+            <button id="long-break" class="mode-btn">Long Break</button>
+          </div>
+
+          <div class="timer">
+            <div class="time-display">
+              <span id="minutes">25</span>:<span id="seconds">00</span>
+            </div>
+
+            <div class="timer-controls">
+              <button id="start-btn" class="control-btn">
+                <i class="fas fa-play"></i>
+              </button>
+              <button id="pause-btn" class="control-btn hidden">
+                <i class="fas fa-pause"></i>
+              </button>
+              <button id="reset-btn" class="control-btn">
+                <i class="fas fa-redo-alt"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="session-info">
+            <div class="session-count">
+              Session: <span id="session-count">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Blas Montanari. All rights reserved.</p>
+    </footer>
+
+    <script src="pomodoro.js"></script>
+  </body>
+</html>
