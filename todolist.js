@@ -6,11 +6,9 @@ const filterBtns = document.querySelectorAll(".filter-btn");
 const tasksCounter = document.getElementById("tasks-counter");
 const clearCompletedBtn = document.getElementById("clear-completed");
 
-// App State
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 let currentFilter = "all";
 
-// Functions
 function saveTasks() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
@@ -132,7 +130,6 @@ function setFilter(filter) {
   renderTasks();
 }
 
-// Event Listeners
 addBtn.addEventListener("click", () => addTask(taskInput.value));
 
 taskInput.addEventListener("keypress", (e) => {
@@ -147,10 +144,8 @@ filterBtns.forEach((btn) => {
 
 clearCompletedBtn.addEventListener("click", clearCompletedTasks);
 
-// Initialize
 renderTasks();
 
-// Mobile menu toggle
 const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
 const navLinks = document.querySelector(".nav-links");
 
@@ -160,7 +155,6 @@ if (mobileMenuToggle) {
   });
 }
 
-// Header scroll effect
 const header = document.querySelector("header");
 window.addEventListener("scroll", () => {
   if (window.scrollY > 50) {
@@ -170,11 +164,9 @@ window.addEventListener("scroll", () => {
   }
 });
 
-// Animations
 document.addEventListener("DOMContentLoaded", () => {
-  // Register GSAP plugins if needed
+
   if (typeof gsap !== "undefined") {
-    // Animate todo container
     gsap.from(".todo-container", {
       duration: 1,
       opacity: 0,
@@ -182,7 +174,6 @@ document.addEventListener("DOMContentLoaded", () => {
       ease: "power3.out"
     });
     
-    // Animate todo elements
     gsap.from(".todo-header", {
       duration: 0.8,
       opacity: 0,
@@ -199,7 +190,6 @@ document.addEventListener("DOMContentLoaded", () => {
       ease: "power3.out"
     });
     
-    // Animate todo items with stagger if they exist
     if (document.querySelectorAll(".todo-item").length > 0) {
       gsap.from(".todo-item", {
         duration: 0.5,
@@ -219,7 +209,6 @@ document.addEventListener("DOMContentLoaded", () => {
       ease: "power3.out"
     });
     
-    // Animate footer without scroll trigger
     gsap.from("footer", {
       duration: 1,
       opacity: 0,

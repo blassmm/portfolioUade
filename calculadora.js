@@ -1,4 +1,3 @@
-// Seleccionar elementos
 const previousOperandElement = document.querySelector(".previous-operand");
 const currentOperandElement = document.querySelector(".current-operand");
 const numberButtons = document.querySelectorAll(".number");
@@ -7,35 +6,28 @@ const equalsButton = document.querySelector(".equals");
 const clearButton = document.querySelector(".clear");
 const deleteButton = document.querySelector(".delete");
 
-// Variables de estado
 let currentOperand = "0";
 let previousOperand = "";
 let operation = undefined;
 let shouldResetScreen = false;
 let lastButtonWasEquals = false;
 
-// Funciones
 function formatNumber(number) {
-  // Convertir a string si es un número
   const stringNumber = number.toString();
 
-  // Separar parte entera y decimal
   const integerDigits = parseFloat(stringNumber.split(".")[0]);
   const decimalDigits = stringNumber.split(".")[1];
 
   let integerDisplay;
 
-  // Manejar NaN
   if (isNaN(integerDigits)) {
     integerDisplay = "0";
   } else {
-    // Formatear con separador de miles
     integerDisplay = integerDigits.toLocaleString("es", {
       maximumFractionDigits: 0,
     });
   }
 
-  // Devolver el número formateado con decimales si existen
   if (decimalDigits != null) {
     return `${integerDisplay}.${decimalDigits}`;
   } else {
@@ -44,10 +36,8 @@ function formatNumber(number) {
 }
 
 function updateDisplay() {
-  // Formatear el número actual para mostrarlo
   currentOperandElement.textContent = formatNumber(currentOperand);
 
-  // Mostrar la operación anterior si existe
   if (operation != null) {
     previousOperandElement.textContent = `${formatNumber(
       previousOperand
@@ -56,30 +46,24 @@ function updateDisplay() {
     previousOperandElement.textContent = previousOperand;
   }
 
-  // Animar el cambio de número
   animateDisplay();
 }
 
 function animateDisplay() {
-  // Añadir clase para la animación
   currentOperandElement.classList.add("updated");
 
-  // Eliminar la clase después de la animación
   setTimeout(() => {
     currentOperandElement.classList.remove("updated");
   }, 150);
 }
 
 function appendNumber(number) {
-  // Si se acaba de pulsar igual, reiniciar la calculadora
   if (lastButtonWasEquals) {
     currentOperand = "0";
     lastButtonWasEquals = false;
   }
 
-  // Reiniciar pantalla si es necesario
   if (currentOperand === "0" || shouldResetScreen) {
-    // Caso especial: si es un punto decimal, mantener el cero
     if (number === ".") {
       currentOperand = "0.";
     } else {
@@ -89,29 +73,22 @@ function appendNumber(number) {
     return;
   }
 
-  // Evitar múltiples puntos decimales
   if (number === "." && currentOperand.includes(".")) return;
 
-  // Limitar la longitud para evitar desbordamiento
   if (currentOperand.replace(/[^0-9]/g, "").length >= 12) return;
 
-  // Añadir el número
   currentOperand += number;
 }
 
 function chooseOperation(op) {
-  // Si no hay número actual, no hacer nada
   if (currentOperand === "") return;
 
-  // Resetear el flag de equals
   lastButtonWasEquals = false;
 
-  // Si ya hay una operación pendiente, calcularla primero
   if (previousOperand !== "") {
     compute();
   }
 
-  // Configurar la nueva operación
   operation = op;
   previousOperand = currentOperand;
   shouldResetScreen = true;
@@ -122,10 +99,8 @@ function compute() {
   const prev = parseFloat(previousOperand);
   const current = parseFloat(currentOperand);
 
-  // Validar operandos
   if (isNaN(prev) || isNaN(current)) return;
 
-  // Realizar la operación correspondiente
   switch (operation) {
     case "+":
       computation = prev + current;
@@ -138,7 +113,6 @@ function compute() {
       break;
     case "÷":
       if (current === 0) {
-        // Mostrar error de división por cero
         currentOperand = "Error";
         operation = undefined;
         previousOperand = "";
@@ -151,7 +125,6 @@ function compute() {
       return;
   }
 
-  // Limitar a 10 decimales para evitar problemas de precisión
   if (computation.toString().includes(".")) {
     const decimalPart = computation.toString().split(".")[1];
     if (decimalPart && decimalPart.length > 10) {
@@ -159,7 +132,6 @@ function compute() {
     }
   }
 
-  // Manejar números muy grandes o muy pequeños
   if (Math.abs(computation) > 999999999999) {
     currentOperand = computation.toExponential(6);
   } else if (Math.abs(computation) < 0.000001 && computation !== 0) {
@@ -168,7 +140,6 @@ function compute() {
     currentOperand = computation.toString();
   }
 
-  // Resetear estado
   operation = undefined;
   previousOperand = "";
   shouldResetScreen = true;
@@ -182,22 +153,18 @@ function clear() {
 }
 
 function deleteDigit() {
-  // Si se acaba de pulsar igual, no hacer nada
   if (lastButtonWasEquals) return;
 
-  // Si solo queda un dígito, poner 0
   if (
     currentOperand.length === 1 ||
     (currentOperand.length === 2 && currentOperand.startsWith("-"))
   ) {
     currentOperand = "0";
   } else {
-    // Eliminar el último carácter
     currentOperand = currentOperand.slice(0, -1);
   }
 }
 
-// Función para dar feedback visual al presionar un botón
 function addClickEffect(button) {
   button.classList.add("active");
   setTimeout(() => {
@@ -205,7 +172,6 @@ function addClickEffect(button) {
   }, 100);
 }
 
-// Event Listeners
 numberButtons.forEach((button) => {
   button.addEventListener("click", () => {
     addClickEffect(button);
@@ -241,11 +207,8 @@ deleteButton.addEventListener("click", () => {
   updateDisplay();
 });
 
-// Soporte para teclado
 document.addEventListener("keydown", (e) => {
-  // Números y punto decimal
   if ((e.key >= "0" && e.key <= "9") || e.key === ".") {
-    // Buscar y animar el botón correspondiente
     const button = [...numberButtons].find((btn) => btn.textContent === e.key);
     if (button) addClickEffect(button);
 
@@ -253,7 +216,6 @@ document.addEventListener("keydown", (e) => {
     updateDisplay();
   }
 
-  // Operadores
   if (e.key === "+" || e.key === "-") {
     const button = [...operatorButtons].find(
       (btn) => btn.textContent === e.key
@@ -263,8 +225,6 @@ document.addEventListener("keydown", (e) => {
     chooseOperation(e.key);
     updateDisplay();
   }
-
-  // Multiplicación
   if (e.key === "*") {
     const button = [...operatorButtons].find((btn) => btn.textContent === "×");
     if (button) addClickEffect(button);
@@ -273,9 +233,8 @@ document.addEventListener("keydown", (e) => {
     updateDisplay();
   }
 
-  // División
   if (e.key === "/") {
-    e.preventDefault(); // Evitar que se abra la búsqueda rápida en algunos navegadores
+    e.preventDefault(); 
     const button = [...operatorButtons].find((btn) => btn.textContent === "÷");
     if (button) addClickEffect(button);
 
@@ -285,7 +244,7 @@ document.addEventListener("keydown", (e) => {
 
   // Igual
   if (e.key === "Enter" || e.key === "=") {
-    e.preventDefault(); // Evitar que se envíe un formulario si está dentro de uno
+    e.preventDefault(); 
     addClickEffect(equalsButton);
 
     compute();
@@ -301,7 +260,6 @@ document.addEventListener("keydown", (e) => {
     updateDisplay();
   }
 
-  // Borrar
   if (e.key === "Backspace") {
     addClickEffect(deleteButton);
 
@@ -313,7 +271,6 @@ document.addEventListener("keydown", (e) => {
 // Inicializar display
 updateDisplay();
 
-// Calculator Class
 class Calculator {
   constructor(previousOperandElement, currentOperandElement) {
     this.previousOperandElement = previousOperandElement;
@@ -412,13 +369,11 @@ class Calculator {
   }
 }
 
-// Initialize Calculator
 const calculator = new Calculator(
   previousOperandElement,
   currentOperandElement
 );
 
-// Event Listeners
 numberButtons.forEach((button) => {
   button.addEventListener("click", () => {
     calculator.appendNumber(button.innerText);
@@ -448,7 +403,6 @@ deleteButton.addEventListener("click", () => {
   calculator.updateDisplay();
 });
 
-// Keyboard support
 document.addEventListener("keydown", (event) => {
   if (event.key >= "0" && event.key <= "9") {
     calculator.appendNumber(event.key);
@@ -470,7 +424,6 @@ document.addEventListener("keydown", (event) => {
   calculator.updateDisplay();
 });
 
-// Mobile menu toggle
 const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
 const navLinks = document.querySelector(".nav-links");
 
@@ -480,7 +433,6 @@ if (mobileMenuToggle) {
   });
 }
 
-// Header scroll effect
 const header = document.querySelector("header");
 window.addEventListener("scroll", () => {
   if (window.scrollY > 50) {
@@ -490,11 +442,9 @@ window.addEventListener("scroll", () => {
   }
 });
 
-// Animate calculator container
 document.addEventListener("DOMContentLoaded", () => {
-  // Register GSAP plugins if needed
+
   if (typeof gsap !== "undefined") {
-    // Animate calculator container
     gsap.from(".calculator-container", {
       duration: 1,
       opacity: 0,
@@ -502,7 +452,6 @@ document.addEventListener("DOMContentLoaded", () => {
       ease: "power3.out",
     });
 
-    // Animate calculator buttons with stagger
     gsap.from("button", {
       duration: 0.5,
       opacity: 0,
@@ -512,7 +461,6 @@ document.addEventListener("DOMContentLoaded", () => {
       ease: "power3.out",
     });
 
-    // Animate footer without scroll trigger
     gsap.from("footer", {
       duration: 1,
       opacity: 0,

@@ -7,7 +7,6 @@
   --success-color: #28a745;
   --max-width: 1200px;
 
-  /* Todo specific variables */
   --todo-bg: #1b1b1b;
   --todo-item-bg: #242424;
   --button-bg: #2a2a2a;
@@ -15,7 +14,6 @@
   --completed-task: rgba(22, 255, 117, 0.2);
 }
 
-/* Reset */
 * {
   margin: 0;
   padding: 0;
@@ -51,7 +49,6 @@ ul {
   list-style: none;
 }
 
-/* Header */
 header {
   background-color: transparent;
   position: fixed;
@@ -125,7 +122,6 @@ header.scrolled {
   width: 100%;
 }
 
-/* Mobile menu */
 .mobile-menu-toggle {
   display: none;
   background: none;
@@ -134,7 +130,6 @@ header.scrolled {
   cursor: pointer;
 }
 
-/* Main Content */
 main {
   width: 100%;
   padding-top: 6rem;
@@ -196,12 +191,10 @@ main {
   background-color: var(--primary-color);
 }
 
-/* Todo App */
 .todo-app {
   margin-top: 2rem;
 }
 
-/* Todo Header */
 .todo-header {
   display: flex;
   margin-bottom: 1.5rem;
@@ -242,7 +235,6 @@ main {
   background-color: #00e060;
 }
 
-/* Filters */
 .filters {
   display: flex;
   justify-content: center;
@@ -270,7 +262,6 @@ main {
   color: var(--dark-color);
 }
 
-/* Todo List */
 .todo-list {
   margin-bottom: 1.5rem;
   max-height: 300px;
@@ -348,7 +339,6 @@ main {
   color: var(--secondary-color);
 }
 
-/* Todo Footer */
 .todo-footer {
   display: flex;
   justify-content: space-between;
@@ -375,7 +365,6 @@ main {
   color: var(--secondary-color);
 }
 
-/* Footer */
 footer {
   background-color: rgba(0, 0, 0, 0.3);
   color: rgba(255, 255, 255, 0.6);
@@ -392,7 +381,6 @@ footer p {
   margin: 0;
 }
 
-/* Responsive */
 @container page (max-width: 768px) {
   .todo-container {
     max-width: 500px;
@@ -435,7 +423,6 @@ footer p {
   }
 }
 
-/* Mobile menu styles */
 @container page (max-width: 640px) {
   .mobile-menu-toggle {
     display: block;
@@ -463,13 +450,11 @@ footer p {
   }
 }
 
-/* Selection styling */
 ::selection {
   background-color: var(--primary-color);
   color: var(--dark-color);
 }
 
-/* Scrollbar */
 .todo-list::-webkit-scrollbar {
   width: 6px;
 }

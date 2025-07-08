@@ -1,4 +1,3 @@
-/* Variables */
 :root {
   --primary-color: #16ff75;
   --secondary-color: #ff6b6b;
@@ -7,14 +6,12 @@
   --success-color: #28a745;
   --max-width: 1200px;
 
-  /* Hero section variables */
   --hero-bg: #0e0e0e;
   --hero-text: #ffffff;
   --hero-highlight: #16ff75;
   --hero-muted: #a0a0a0;
 }
 
-/* Reset */
 * {
   margin: 0;
   padding: 0;
@@ -44,7 +41,6 @@ ul {
   list-style: none;
 }
 
-/* Header */
 header {
   background-color: transparent;
   position: fixed;
@@ -118,7 +114,6 @@ header.scrolled {
   width: 100%;
 }
 
-/* Mobile menu */
 .mobile-menu-toggle {
   display: none;
   background: none;
@@ -152,7 +147,6 @@ body:has(.nav-links.active) .mobile-menu-toggle .close-icon {
   transform: rotate(0);
 }
 
-/* Hero Section */
 .hero-section {
   background-color: var(--hero-bg);
   background-image: radial-gradient(
@@ -353,7 +347,6 @@ body:has(.nav-links.active) .mobile-menu-toggle .close-icon {
   color: var(--hero-bg);
 }
 
-/* Main Content */
 main {
   width: 100%;
 }
@@ -368,7 +361,6 @@ main {
   position: relative;
 }
 
-/* Section backgrounds */
 .section::before {
   content: "";
   position: absolute;
@@ -398,7 +390,6 @@ main {
   left: -100px;
 }
 
-/* About Section */
 .about-content {
   max-width: 800px;
   margin: 0 auto;
@@ -412,7 +403,6 @@ main {
   color: var(--hero-muted);
 }
 
-/* Projects Section */
 .projects-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -469,7 +459,6 @@ main {
   color: var(--dark-color);
 }
 
-/* Contact Section */
 .contact-content {
   max-width: 600px;
   margin: 0 auto;
@@ -570,7 +559,6 @@ h2::after {
   background-color: var(--hero-highlight);
 }
 
-/* Footer */
 footer {
   background-color: rgba(0, 0, 0, 0.3);
   color: var(--hero-muted);
@@ -587,7 +575,6 @@ footer p {
   margin: 0;
 }
 
-/* Responsive */
 @container page (max-width: 768px) {
   .hero-section h1 {
     font-size: clamp(2rem, 6vw, 3rem);
@@ -703,7 +690,6 @@ footer p {
   }
 }
 
-/* Mobile menu styles */
 @container page (max-width: 640px) {
   body.menu-open {
     overflow: hidden;
@@ -798,13 +784,11 @@ footer p {
   }
 }
 
-/* Selection styling */
 ::selection {
   background-color: var(--hero-highlight);
   color: var(--dark-color);
 }
 
-/* Form success message */
 .form-success {
   text-align: center;
   padding: 2rem;

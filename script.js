@@ -1,9 +1,6 @@
-// Wait for DOM to be fully loaded
 document.addEventListener("DOMContentLoaded", () => {
-  // Register ScrollTrigger plugin
   gsap.registerPlugin(ScrollTrigger);
 
-  // Update local time
   const updateLocalTime = () => {
     const timeElement = document.querySelector(".footer-meta .time");
     if (timeElement) {
@@ -14,11 +11,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // Update time immediately and then every minute
   updateLocalTime();
   setInterval(updateLocalTime, 60000);
 
-  // Mobile menu toggle
   const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
   const navLinks = document.querySelector(".nav-links");
   const body = document.body;
@@ -28,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (mobileMenuToggle) {
     mobileMenuToggle.addEventListener("click", () => {
       navLinks.classList.toggle("active");
-      // Toggle icon visibility
       if (navLinks.classList.contains("active")) {
         menuIcon.style.opacity = "0";
         menuIcon.style.transform = "rotate(90deg)";
@@ -45,12 +39,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Close mobile menu when clicking on a link
   const navLinksItems = document.querySelectorAll(".nav-links a");
   navLinksItems.forEach((link) => {
     link.addEventListener("click", () => {
       navLinks.classList.remove("active");
-      // Reset icon state
       if (menuIcon && closeIcon) {
         menuIcon.style.opacity = "1";
         menuIcon.style.transform = "rotate(0)";
@@ -61,7 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Header scroll effect
   const header = document.querySelector("header");
   window.addEventListener("scroll", () => {
     if (window.scrollY > 50) {
@@ -71,22 +62,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Contact form handling
   const contactForm = document.getElementById("contact-form");
   if (contactForm) {
     contactForm.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      // Get form values
       const name = document.getElementById("name").value;
       const email = document.getElementById("email").value;
       const subject = document.getElementById("subject").value;
       const message = document.getElementById("message").value;
 
-      // Here you would normally send the form data to a server
-      // For now, we'll just show a success message
-
-      // Create success message
       const successMessage = document.createElement("div");
       successMessage.className = "form-success";
       successMessage.innerHTML = `
@@ -94,11 +79,9 @@ document.addEventListener("DOMContentLoaded", () => {
         <p>Thank you ${name}, I'll get back to you soon.</p>
       `;
 
-      // Replace form with success message
       contactForm.innerHTML = "";
       contactForm.appendChild(successMessage);
 
-      // Animate success message
       gsap.from(".form-success", {
         opacity: 0,
         y: 20,
@@ -106,7 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ease: "power3.out",
       });
 
-      // Log the form data to console (for demonstration)
       console.log({
         name,
         email,
@@ -116,10 +98,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Hero section animations
   const heroTl = gsap.timeline();
 
-  // Animate hero text
   heroTl
     .from(".hero-section h1", {
       duration: 0.8,
@@ -149,7 +129,6 @@ document.addEventListener("DOMContentLoaded", () => {
       "-=0.3"
     );
 
-  // Animate 3D objects
   gsap.set(".object", { opacity: 0, scale: 0.5 });
 
   gsap.to(".object-1", {
@@ -176,7 +155,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ease: "power3.out",
   });
 
-  // Continuous floating animation for 3D objects
   gsap.to(".object-1", {
     y: "-=20",
     x: "+=10",
@@ -209,7 +187,6 @@ document.addEventListener("DOMContentLoaded", () => {
     delay: 1,
   });
 
-  // Animate navbar
   gsap.from(".navbar", {
     duration: 1,
     y: -100,
@@ -217,7 +194,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ease: "power3.out",
   });
 
-  // Animate logo
   gsap.from(".logo", {
     duration: 1.2,
     x: -50,
@@ -226,7 +202,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ease: "power3.out",
   });
 
-  // Animate nav links
   gsap.from(".nav-links li", {
     duration: 1,
     opacity: 0,
@@ -236,7 +211,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ease: "power3.out",
   });
 
-  // Animate footer meta
   gsap.from(".footer-meta", {
     duration: 1,
     opacity: 0,
@@ -248,138 +222,154 @@ document.addEventListener("DOMContentLoaded", () => {
   gsap.from(".social-links a", {
     duration: 0.8,
     opacity: 0,
-    y: 10,
+    x: -10,
     stagger: 0.1,
     delay: 1.8,
+    ease: "power3.out",
+  });
+
+  gsap.from(".status-dot", {
+    duration: 0.5,
+    scale: 0,
+    opacity: 0,
+    delay: 2,
+    ease: "back.out(1.7)",
+  });
+
+  gsap.from(".location, .time", {
+    duration: 0.8,
+    opacity: 0,
+    y: 10,
+    stagger: 0.2,
+    delay: 2.1,
     ease: "power3.out",
   });
 
   gsap.from(".cta-button", {
     duration: 0.8,
     opacity: 0,
-    y: 10,
-    delay: 2,
+    scale: 0.8,
+    delay: 2.3,
     ease: "power3.out",
   });
 
-  // Section background animations
-  const sectionBgs = document.querySelectorAll(".section");
-
-  sectionBgs.forEach((section) => {
-    gsap.to(section, {
+  const sections = document.querySelectorAll(".section");
+  sections.forEach((section) => {
+    gsap.from(section.querySelector(".section::before"), {
       scrollTrigger: {
         trigger: section,
         start: "top 80%",
         end: "bottom 20%",
-        scrub: true,
+        toggleActions: "play none none reverse",
       },
-      backgroundPosition: "center 30%",
-      ease: "none",
+      opacity: 0,
+      scale: 0.5,
+      duration: 1.5,
+      ease: "power3.out",
     });
   });
 
-  // Animate section headings with line effect
-  const sectionHeadings = document.querySelectorAll(".section h2");
-
-  sectionHeadings.forEach((heading) => {
-    const tl = gsap.timeline({
+  gsap.utils.toArray(".section h2").forEach((heading) => {
+    gsap.from(heading, {
       scrollTrigger: {
         trigger: heading,
         start: "top 80%",
-        toggleActions: "play none none none",
+        end: "bottom 20%",
+        toggleActions: "play none none reverse",
       },
-    });
-
-    tl.from(heading, {
-      duration: 0.8,
       opacity: 0,
       y: 30,
+      duration: 0.8,
       ease: "power3.out",
     });
 
-    // Add the underline animation separately
-    tl.fromTo(
-      heading,
-      { "--underline-width": "0px" },
-      { "--underline-width": "60px", duration: 0.6, ease: "power3.inOut" },
-      "-=0.3"
-    );
+    gsap.from(heading.querySelector("h2::after"), {
+      scrollTrigger: {
+        trigger: heading,
+        start: "top 80%",
+        end: "bottom 20%",
+        toggleActions: "play none none reverse",
+      },
+      width: 0,
+      duration: 1,
+      delay: 0.3,
+      ease: "power3.out",
+    });
   });
 
-  // Animate about content
   gsap.from(".about-content p", {
     scrollTrigger: {
       trigger: ".about-content",
       start: "top 80%",
-      toggleActions: "play none none none",
+      end: "bottom 20%",
+      toggleActions: "play none none reverse",
     },
-    duration: 1,
     opacity: 0,
     y: 30,
+    duration: 0.8,
     ease: "power3.out",
   });
 
-  // Animate project cards
   gsap.from(".project-card", {
     scrollTrigger: {
       trigger: ".projects-container",
       start: "top 80%",
-      toggleActions: "play none none none",
+      end: "bottom 20%",
+      toggleActions: "play none none reverse",
     },
-    duration: 0.8,
     opacity: 0,
     y: 50,
+    duration: 0.8,
     stagger: 0.2,
     ease: "power3.out",
   });
 
-  // Animate contact content
   gsap.from(".contact-content p", {
     scrollTrigger: {
       trigger: ".contact-content",
       start: "top 80%",
-      toggleActions: "play none none none",
+      end: "bottom 20%",
+      toggleActions: "play none none reverse",
     },
-    duration: 0.8,
     opacity: 0,
     y: 30,
+    duration: 0.8,
     ease: "power3.out",
   });
 
-  // Animate contact form
   gsap.from(".form-group", {
     scrollTrigger: {
       trigger: ".contact-form",
       start: "top 80%",
-      toggleActions: "play none none none",
+      end: "bottom 20%",
+      toggleActions: "play none none reverse",
     },
-    duration: 0.8,
     opacity: 0,
     y: 30,
+    duration: 0.8,
     stagger: 0.1,
-    delay: 0.2,
     ease: "power3.out",
   });
 
   gsap.from(".contact-btn", {
     scrollTrigger: {
-      trigger: ".contact-content",
+      trigger: ".contact-form",
       start: "top 80%",
-      toggleActions: "play none none none",
+      end: "bottom 20%",
+      toggleActions: "play none none reverse",
     },
-    duration: 0.8,
     opacity: 0,
     y: 30,
-    delay: 0.6,
+    duration: 0.8,
+    delay: 0.5,
     ease: "power3.out",
   });
 
-  // Animate footer - without scroll trigger
   gsap.from("footer", {
-    duration: 1,
     opacity: 0,
-    y: 30,
-    delay: 2.5,
+    y: 20,
+    duration: 0.8,
+    delay: 0.3,
     ease: "power3.out",
   });
 });

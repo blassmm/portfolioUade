@@ -1,11 +1,10 @@
-// Timer settings
+
 const timerSettings = {
-  pomodoro: 25 * 60, // 25 minutes in seconds
-  shortBreak: 5 * 60, // 5 minutes in seconds
-  longBreak: 15 * 60, // 15 minutes in seconds
+  pomodoro: 25 * 60, 
+  shortBreak: 5 * 60, 
+  longBreak: 15 * 60,
 };
 
-// DOM Elements
 const minutesEl = document.getElementById("minutes");
 const secondsEl = document.getElementById("seconds");
 const startBtn = document.getElementById("start-btn");
@@ -17,13 +16,11 @@ const longBreakBtn = document.getElementById("long-break");
 const sessionCountEl = document.getElementById("session-count");
 const timerContainer = document.querySelector(".timer-container");
 
-// Timer variables
 let currentMode = "pomodoro";
 let timeLeft = timerSettings[currentMode];
 let timerInterval = null;
 let sessionCount = 0;
 
-// Functions
 function updateDisplay() {
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
@@ -43,7 +40,6 @@ function switchMode(mode) {
   currentMode = mode;
   timeLeft = timerSettings[mode];
 
-  // Reset timer if it's running
   if (timerInterval) {
     clearInterval(timerInterval);
     timerInterval = null;
@@ -51,10 +47,8 @@ function switchMode(mode) {
     pauseBtn.classList.add("hidden");
   }
 
-  // Update display
   updateDisplay();
 
-  // Set active button
   if (mode === "pomodoro") {
     setActiveButton(pomodoroBtn);
   } else if (mode === "shortBreak") {
@@ -78,25 +72,21 @@ function startTimer() {
       clearInterval(timerInterval);
       timerInterval = null;
 
-      // Play notification sound
       const audio = new Audio(
         "https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3"
       );
       audio.play();
 
-      // Update session count if pomodoro is completed
       if (currentMode === "pomodoro") {
         sessionCount++;
         sessionCountEl.textContent = sessionCount;
 
-        // After 4 pomodoros, take a long break
         if (sessionCount % 4 === 0) {
           switchMode("longBreak");
         } else {
           switchMode("shortBreak");
         }
       } else {
-        // After break, go back to pomodoro
         switchMode("pomodoro");
       }
 
@@ -129,7 +119,6 @@ function resetTimer() {
   pauseBtn.classList.add("hidden");
 }
 
-// Event Listeners
 startBtn.addEventListener("click", startTimer);
 pauseBtn.addEventListener("click", pauseTimer);
 resetBtn.addEventListener("click", resetTimer);
@@ -138,10 +127,8 @@ pomodoroBtn.addEventListener("click", () => switchMode("pomodoro"));
 shortBreakBtn.addEventListener("click", () => switchMode("shortBreak"));
 longBreakBtn.addEventListener("click", () => switchMode("longBreak"));
 
-// Initialize
 updateDisplay();
 
-// Mobile menu toggle
 const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
 const navLinks = document.querySelector(".nav-links");
 
@@ -151,7 +138,6 @@ if (mobileMenuToggle) {
   });
 }
 
-// Header scroll effect
 const header = document.querySelector("header");
 window.addEventListener("scroll", () => {
   if (window.scrollY > 50) {
@@ -161,11 +147,9 @@ window.addEventListener("scroll", () => {
   }
 });
 
-// Animations
 document.addEventListener("DOMContentLoaded", () => {
-  // Register GSAP plugins if needed
+
   if (typeof gsap !== "undefined") {
-    // Animate pomodoro container
     gsap.from(".pomodoro-container", {
       duration: 1,
       opacity: 0,
@@ -173,7 +157,6 @@ document.addEventListener("DOMContentLoaded", () => {
       ease: "power3.out",
     });
 
-    // Animate timer elements
     gsap.from(".mode-buttons", {
       duration: 0.8,
       opacity: 0,
@@ -199,7 +182,6 @@ document.addEventListener("DOMContentLoaded", () => {
       ease: "power3.out",
     });
 
-    // Animate footer without scroll trigger
     gsap.from("footer", {
       duration: 1,
       opacity: 0,
